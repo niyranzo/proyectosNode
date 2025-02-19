@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: Pokemons
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - pok-network
+
+  pok-node-app:
+    build:
+      context: ./backend
+    container_name: pok-node-app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mariadb
+    networks:
+      - pok-network
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_DATABASE: Pokemons
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: pok-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - pok-node-app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - pok-network
+
+networks:
+  pok-network:
+    name: pok-network
+    driver: bridge
+
+volumes:
+  mariadb-data:
+    driver: local
