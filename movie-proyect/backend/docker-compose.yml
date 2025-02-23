@@ -1,0 +1,61 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - backend-movie
+    networks:
+      - app-network-movie
+
+  backend-movie:
+    build: .
+    container_name: backend-movie
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo-movie
+    environment:
+      - MONGO_DB_URI=mongodb://root:example@mongo-movie:27017/movie?authSource=admin
+      - JWT_SECRET=:C@AZ\RdYM8n@%Zl
+    networks:
+      - app-network-movie
+
+  mongo-movie: 
+    image: mongo:8.0
+    container_name: mongo-movie
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - app-network-movie
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_BASICAUTH_USERNAME: isaias
+      ME_CONFIG_BASICAUTH_PASSWORD: hlanz
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo-movie:27017/?authSource=admin
+    depends_on:
+      - mongo-movie
+    networks:
+      - app-network-movie
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network-movie:

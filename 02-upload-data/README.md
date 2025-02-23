@@ -18,7 +18,6 @@ Este proyecto es una aplicación en Node.js que permite subir archivos y almacen
 
 Antes de levantar el contenedor, es necesario crear un archivo `.env` en la raíz del proyecto con el siguiente contenido:
 
-
 - SENDGRID_API_KEY=SG.c9ugGEimRLKdZLOAyL-K1A.ap///EpHx8_zp0L_OAzS5o3PgDes4ZKZHFKh2X1_9Cc4-A (para utilizarlo quita las "///")
 
 
