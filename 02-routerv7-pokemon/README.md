@@ -96,4 +96,4 @@ SELECT * FROM favorite;
 Para salir del contenedor
 - exit
 
-
+## Puede que al primer docker compose up no funcione la conexion de la bd, por lo cual vas a tener que hacerle otro docker-compose up --build. No supe solucionarlo :(
