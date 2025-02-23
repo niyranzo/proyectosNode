@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: Pokemons
-      MYSQL_USER: root
+      MYSQL_USER: rootIsaias
       MYSQL_PASSWORD: root
     ports:
       - "3306:3306"
@@ -29,7 +29,7 @@ services:
     environment:
       DB_HOST: mariadb
       DB_PORT: 3306
-      DB_USER: root
+      DB_USER: rootIsaias
       DB_PASSWORD: root
       DB_DATABASE: Pokemons
 

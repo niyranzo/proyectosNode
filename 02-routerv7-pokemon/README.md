@@ -68,14 +68,32 @@ Para desplegar el proyecto con Docker Compose, ejecuta el siguiente comando:
 ```bash
 docker-compose up --build
 ```
+## Vista endpoints, Pagina y Base de Datos
 
-Este comando:
-- Construirá las imágenes para cada servicio (MariaDB, Backend y Frontend).
-- Levantará los contenedores y orquestará la comunicación entre ellos.
+### Para ingresar a la página web del front:
+- http://localhost:5173/
 
-Si necesitas detener y eliminar los contenedores, utiliza:
+### Para ver los endpoints: 
+- http://localhost:5000/pokemon
+- http://localhost:5000/favorite
+### Para entrar a la base de datos:
 
-```bash
-docker-compose down
-```
+````
+docker exec -it mariadb bash  
+apt-get update 
+apt install mysql-client
+mysql -u rootIsaias -p 
+````
+### Ver las tablas de la Base de Datos Pokemons y realizar consultas
+
+````
+Use Pokemons;
+Show tables;
+SELECT * FROM pokemons;
+SELECT * FROM favorite;
+````
+![alt text](image.png)
+Para salir del contenedor
+- exit
+
 
